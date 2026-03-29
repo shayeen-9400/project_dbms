@@ -4,28 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Student — Smart Student Manager</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
-
-    <!-- ========== NAVBAR ========== -->
     <nav class="navbar">
         <a href="/" class="nav-brand">
-            <i class="fas fa-graduation-cap"></i>
-            <span>Student Manager</span>
+            <div class="nav-brand-icon"><i class="fas fa-graduation-cap"></i></div>
+            <span class="nav-brand-text">Smart<span>Student</span></span>
         </a>
-        <a href="/" class="btn btn-secondary" id="back-btn">
-            <i class="fas fa-arrow-left"></i> Back
-        </a>
+        <ul class="nav-links">
+            <li><a href="/">Dashboard</a></li>
+            <li><a href="/add">Add Student</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="/" class="btn btn-secondary btn-sm" id="back-btn">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+        </div>
     </nav>
 
-    <!-- ========== EDIT FORM ========== -->
     <section class="form-section">
         <div class="form-card">
-            <h2><i class="fas fa-user-edit"></i> Edit Student</h2>
-            <!-- student._id is passed from Flask/Jinja2 -->
+            <div class="form-card-header">
+                <h2>
+                    <div class="icon-wrap"><i class="fas fa-user-edit"></i></div>
+                    Edit Student
+                </h2>
+                <p>Update the information for <strong>{{ student.name }}</strong>.</p>
+            </div>
             <form id="edit-form" data-id="{{ student._id }}" novalidate>
                 <div class="form-group">
                     <label for="name"><i class="fas fa-user"></i> Full Name</label>
@@ -45,9 +53,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="marks"><i class="fas fa-star"></i> Marks</label>
+                    <label for="marks"><i class="fas fa-star"></i> Marks (out of 100)</label>
                     <input type="number" id="marks" name="marks" value="{{ student.marks }}" min="0" max="100" step="0.1" required />
-                    <p class="marks-hint">Enter marks between 0 and 100. Grades: A+ ≥90 · A ≥80 · B ≥70 · C ≥60 · D ≥50 · F &lt;50</p>
+                    <p class="marks-hint">
+                        <i class="fas fa-info-circle"></i>
+                        Grades: <strong>A+</strong> ≥90 · <strong>A</strong> ≥80 · <strong>B</strong> ≥70 · <strong>C</strong> ≥60 · <strong>D</strong> ≥50 · <strong>F</strong> &lt;50
+                    </p>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block" id="submit-edit-btn">
                     <i class="fas fa-save"></i> Update Student
@@ -56,7 +67,6 @@
         </div>
     </section>
 
-    <!-- Toast container -->
     <div id="toast-container"></div>
     <script src="/static/script.js"></script>
 </body>

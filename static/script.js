@@ -308,7 +308,7 @@ function renderGradeChart(gradeDist) {
 
     const labels = ["A+", "A", "B", "C", "D", "F"];
     const values = labels.map(l => gradeDist[l] || 0);
-    const colors = ["#00e676", "#69f0ae", "#00e5ff", "#ffd740", "#ff9800", "#ff4d6a"];
+    const colors = ["#10B981", "#34D399", "#3B82F6", "#F59E0B", "#F97316", "#EF4444"];
 
     gradeChartInstance = new Chart(canvas, {
         type: "bar",
@@ -316,7 +316,7 @@ function renderGradeChart(gradeDist) {
             labels,
             datasets: [{
                 data:            values,
-                backgroundColor: colors.map(c => c + "33"),
+                backgroundColor: colors.map(c => c + "22"),
                 borderColor:     colors,
                 borderWidth:     2,
                 borderRadius:    8,
@@ -328,8 +328,8 @@ function renderGradeChart(gradeDist) {
             maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
-                x: { grid: { color: "rgba(255,255,255,0.05)" }, ticks: { color: "#a0a0c0", font: { family: "Poppins" } } },
-                y: { grid: { color: "rgba(255,255,255,0.05)" }, ticks: { color: "#a0a0c0", stepSize: 1, font: { family: "Poppins" } }, beginAtZero: true },
+                x: { grid: { color: "rgba(0,0,0,0.04)" }, ticks: { color: "#64748B", font: { family: "Poppins", size: 12 } } },
+                y: { grid: { color: "rgba(0,0,0,0.04)" }, ticks: { color: "#64748B", stepSize: 1, font: { family: "Poppins" } }, beginAtZero: true },
             },
         }
     });
@@ -342,7 +342,7 @@ function renderDeptChart(deptCounts) {
 
     const labels = Object.keys(deptCounts).map(d => d.split("(")[0].trim());
     const values = Object.values(deptCounts);
-    const palette = ["#00e5ff","#7c4dff","#00e676","#ffd740","#ff4d6a","#ff9800","#f06292","#80cbc4","#aed581","#ffb74d"];
+    const palette = ["#2563EB","#8B5CF6","#10B981","#F59E0B","#EF4444","#F97316","#EC4899","#06B6D4","#84CC16","#6366F1"];
 
     deptChartInstance = new Chart(canvas, {
         type: "doughnut",
@@ -350,9 +350,9 @@ function renderDeptChart(deptCounts) {
             labels,
             datasets: [{
                 data: values,
-                backgroundColor: palette.map(c => c + "bb"),
-                borderColor:     palette,
-                borderWidth:     2,
+                backgroundColor: palette.map(c => c + "cc"),
+                borderColor:     "#fff",
+                borderWidth:     3,
             }]
         },
         options: {
@@ -361,7 +361,7 @@ function renderDeptChart(deptCounts) {
             plugins: {
                 legend: {
                     position: "right",
-                    labels: { color: "#a0a0c0", font: { family: "Poppins", size: 11 }, boxWidth: 14, padding: 10 }
+                    labels: { color: "#334155", font: { family: "Poppins", size: 11 }, boxWidth: 14, padding: 10 }
                 }
             },
             cutout: "65%",
