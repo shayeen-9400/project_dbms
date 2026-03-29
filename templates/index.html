@@ -4,12 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Smart Student Manager — Dashboard</title>
-    <meta name="description" content="A modern student management dashboard with live search, stats, and CRUD operations." />
-    <!-- Google Fonts: Poppins -->
+    <meta name="description" content="A modern student management dashboard with live search, sort, filter, grade analytics, and CRUD operations." />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <!-- Custom Styles -->
     <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
@@ -20,9 +17,14 @@
             <i class="fas fa-graduation-cap"></i>
             <span>Student Manager</span>
         </div>
-        <a href="/add" class="btn btn-primary" id="add-student-btn">
-            <i class="fas fa-plus"></i> Add Student
-        </a>
+        <div class="nav-actions">
+            <button class="btn btn-success btn-sm" id="export-btn">
+                <i class="fas fa-file-csv"></i> Export CSV
+            </button>
+            <a href="/add" class="btn btn-primary" id="add-student-btn">
+                <i class="fas fa-plus"></i> Add Student
+            </a>
+        </div>
     </nav>
 
     <!-- ========== DASHBOARD STATS ========== -->
@@ -50,13 +52,48 @@
         </div>
     </section>
 
-    <!-- ========== SEARCH BAR ========== -->
-    <section class="search-section">
-        <div class="search-wrapper">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" id="search-input" placeholder="Search by name or roll number..." autocomplete="off" />
+    <!-- ========== CHARTS ========== -->
+    <section class="chart-section">
+        <div class="chart-card">
+            <h4><i class="fas fa-chart-bar"></i> Grade Distribution</h4>
+            <div class="chart-wrapper">
+                <canvas id="grade-chart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <h4><i class="fas fa-chart-pie"></i> Students by Department</h4>
+            <div class="chart-wrapper">
+                <canvas id="dept-chart"></canvas>
+            </div>
         </div>
     </section>
+
+    <!-- ========== DEPARTMENT FILTER TABS ========== -->
+    <div class="dept-tabs">
+        <div class="dept-tabs-inner" id="dept-tabs-inner">
+            <!-- Tabs injected by JS -->
+        </div>
+    </div>
+
+    <!-- ========== TOOLBAR: Search + Sort ========== -->
+    <div class="toolbar">
+        <section class="search-section" style="padding:0; flex:1; min-width:220px;">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="search-input" placeholder="Search by name or roll number…" autocomplete="off" />
+            </div>
+        </section>
+
+        <div class="sort-group">
+            <label for="sort-select"><i class="fas fa-sort"></i> Sort by</label>
+            <select id="sort-select" class="sort-select">
+                <option value="name_asc">Name A → Z</option>
+                <option value="name_desc">Name Z → A</option>
+                <option value="marks_desc">Marks High → Low</option>
+                <option value="marks_asc">Marks Low → High</option>
+            </select>
+        </div>
+    </div>
 
     <!-- ========== STUDENT CARDS GRID ========== -->
     <section class="cards-section" id="cards-container">
@@ -67,7 +104,12 @@
     <div class="empty-state" id="empty-state" style="display:none;">
         <i class="fas fa-user-slash"></i>
         <p>No students found</p>
+        <span>Try adjusting your search or filter</span>
     </div>
+
+    <!-- ========== PAGINATION ========== -->
+    <div id="page-info" style="text-align:center; font-size:0.82rem; color:var(--text-secondary); margin-top:4px;"></div>
+    <div class="pagination" id="pagination" style="display:none;"></div>
 
     <!-- ========== TOAST CONTAINER ========== -->
     <div id="toast-container"></div>
@@ -85,6 +127,8 @@
         </div>
     </div>
 
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
     <!-- Custom Script -->
     <script src="/static/script.js"></script>
 </body>

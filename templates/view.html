@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ student.name }} — Smart Student Manager</title>
+    <meta name="description" content="Student profile for {{ student.name }}, {{ student.department }}." />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar">
+        <a href="/" class="nav-brand">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Student Manager</span>
+        </a>
+        <a href="/" class="btn btn-secondary" id="back-btn">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+    </nav>
+
+    <!-- ========== STUDENT DETAIL ========== -->
+    <section class="view-section">
+        <div class="view-card">
+
+            <!-- Avatar + Name -->
+            <div class="view-avatar-wrap">
+                {% set initials = (student.name.split(' ') | map('first') | join('') | upper)[:2] %}
+                <div class="view-avatar">{{ initials }}</div>
+                <div class="view-name">{{ student.name }}</div>
+                <div class="view-roll">Roll No: {{ student.roll_number }}</div>
+            </div>
+
+            <!-- Detail rows -->
+            <div class="view-details">
+                <div class="view-row">
+                    <div class="view-row-icon dept"><i class="fas fa-building"></i></div>
+                    <div>
+                        <div class="view-row-label">Department</div>
+                        <div class="view-row-value">{{ student.department }}</div>
+                    </div>
+                </div>
+
+                <div class="view-row">
+                    <div class="view-row-icon marks"><i class="fas fa-star"></i></div>
+                    <div style="flex:1;">
+                        <div class="view-row-label">Marks</div>
+                        <div class="view-row-value">{{ student.marks }} / 100</div>
+                        <div class="marks-bar-wrap">
+                            <div class="marks-bar-fill" id="marks-bar" style="width:0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="view-row">
+                    <div class="view-row-icon grade"><i class="fas fa-award"></i></div>
+                    <div>
+                        <div class="view-row-label">Grade</div>
+                        <div class="view-row-value">
+                            {% set grade = student.grade %}
+                            {% if grade == "A+" %}
+                                <span class="view-grade-large grade-badge grade-ap">A+ — Excellent</span>
+                            {% elif grade == "A" %}
+                                <span class="view-grade-large grade-badge grade-a">A — Very Good</span>
+                            {% elif grade == "B" %}
+                                <span class="view-grade-large grade-badge grade-b">B — Good</span>
+                            {% elif grade == "C" %}
+                                <span class="view-grade-large grade-badge grade-c">C — Average</span>
+                            {% elif grade == "D" %}
+                                <span class="view-grade-large grade-badge grade-d">D — Below Average</span>
+                            {% else %}
+                                <span class="view-grade-large grade-badge grade-f">F — Fail</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="view-actions">
+                <a href="/edit/{{ student._id }}" class="btn btn-primary" id="edit-student-btn">
+                    <i class="fas fa-pen"></i> Edit
+                </a>
+                <button class="btn btn-danger" id="delete-view-btn" onclick="openDeleteModal('{{ student._id }}')">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast container -->
+    <div id="toast-container"></div>
+
+    <!-- Delete modal (reused from script.js) -->
+    <div class="modal-overlay" id="delete-modal" style="display:none;">
+        <div class="modal-card">
+            <i class="fas fa-exclamation-triangle modal-icon"></i>
+            <h2>Delete Student?</h2>
+            <p>This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancel-delete-btn">Cancel</button>
+                <button class="btn btn-danger" id="confirm-delete-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+    <script>
+        // Animate the marks progress bar
+        window.addEventListener("load", () => {
+            const bar = document.getElementById("marks-bar");
+            if (bar) setTimeout(() => { bar.style.width = "{{ student.marks }}%"; }, 200);
+        });
+
+        // Override confirm delete to redirect home after deletion
+        if (document.getElementById("confirm-delete-btn")) {
+            document.getElementById("confirm-delete-btn").addEventListener("click", async () => {
+                try {
+                    const res  = await fetch(`/api/students/{{ student._id }}`, { method: "DELETE" });
+                    const data = await res.json();
+                    sessionStorage.setItem("toast", data.message || "Student deleted.");
+                    window.location.href = "/";
+                } catch (err) {
+                    console.error(err);
+                }
+            }, { once: true });
+        }
+    </script>
+</body>
+</html>
