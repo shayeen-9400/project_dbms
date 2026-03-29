@@ -1,0 +1,585 @@
+/* ============================================================
+   Smart Student Manager — Premium Dark Theme
+   ============================================================ */
+
+/* ---------- CSS Custom Properties ---------- */
+:root {
+    --bg-gradient-start: #0f0c29;
+    --bg-gradient-mid: #1a1a4e;
+    --bg-gradient-end: #24243e;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    --accent: #00e5ff;
+    --accent-glow: 0 0 20px rgba(0, 229, 255, 0.4);
+    --accent-secondary: #7c4dff;
+    --text-primary: #f0f0f0;
+    --text-secondary: #a0a0c0;
+    --danger: #ff4d6a;
+    --danger-glow: 0 0 15px rgba(255, 77, 106, 0.4);
+    --success: #00e676;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --transition: 0.3s ease;
+    --font: 'Poppins', sans-serif;
+}
+
+/* ---------- Reset & Base ---------- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font);
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end));
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    animation: fadeInPage 0.6s ease-out;
+}
+
+@keyframes fadeInPage {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    background: rgba(15, 12, 41, 0.7);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+
+.nav-brand i {
+    font-size: 1.5rem;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: var(--font);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all var(--transition);
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #0f0c29;
+    box-shadow: var(--accent-glow);
+}
+
+.btn-primary:hover {
+    background: #33ecff;
+    box-shadow: 0 0 30px rgba(0, 229, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: #fff;
+    box-shadow: var(--danger-glow);
+}
+
+.btn-danger:hover {
+    box-shadow: 0 0 25px rgba(255, 77, 106, 0.6);
+    transform: translateY(-2px);
+}
+
+.btn-block {
+    width: 100%;
+    justify-content: center;
+    padding: 14px;
+    font-size: 1rem;
+}
+
+.btn-sm {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+}
+
+/* ---------- Stats Section ---------- */
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 30px 40px 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 24px 28px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--glass-shadow);
+    animation: cardPop 0.5s ease-out both;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes cardPop {
+    from { opacity: 0; transform: scale(0.92) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.stat-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    font-size: 1.4rem;
+}
+
+#stat-total .stat-icon { background: rgba(0, 229, 255, 0.15); color: var(--accent); }
+#stat-average .stat-icon { background: rgba(124, 77, 255, 0.15); color: var(--accent-secondary); }
+#stat-highest .stat-icon { background: rgba(255, 215, 0, 0.15); color: #ffd700; }
+
+.stat-info h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-info p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+/* ---------- Search Section ---------- */
+.search-section {
+    padding: 20px 40px 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+#search-input {
+    width: 100%;
+    padding: 14px 18px 14px 48px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    outline: none;
+    backdrop-filter: blur(10px);
+    transition: border var(--transition), box-shadow var(--transition);
+}
+
+#search-input::placeholder {
+    color: var(--text-secondary);
+}
+
+#search-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.25);
+}
+
+/* ---------- Cards Grid ---------- */
+.cards-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+    padding: 20px 40px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ---------- Student Card ---------- */
+.student-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 26px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--glass-shadow);
+    transition: transform var(--transition), box-shadow var(--transition);
+    animation: cardFadeIn 0.4s ease-out both;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+@keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.student-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 229, 255, 0.08);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.card-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.card-detail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+}
+
+.card-detail i {
+    width: 18px;
+    text-align: center;
+    color: var(--accent);
+}
+
+.card-marks {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    background: rgba(0, 229, 255, 0.12);
+    color: var(--accent);
+    width: fit-content;
+}
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.card-actions .btn {
+    flex: 1;
+    justify-content: center;
+}
+
+/* ---------- Empty State ---------- */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+    animation: fadeInPage 0.5s ease-out;
+}
+
+.empty-state i {
+    font-size: 3.5rem;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    font-size: 1.15rem;
+}
+
+/* ---------- Form Section ---------- */
+.form-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 70px);
+    padding: 30px 20px;
+}
+
+.form-card {
+    width: 100%;
+    max-width: 480px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: var(--glass-shadow);
+    padding: 36px 32px;
+    animation: cardPop 0.5s ease-out;
+}
+
+.form-card h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 28px;
+    color: var(--accent);
+}
+
+.form-card h2 i {
+    margin-right: 8px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+}
+
+.form-group label i {
+    margin-right: 6px;
+    color: var(--accent);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border var(--transition), box-shadow var(--transition);
+}
+
+.form-group input::placeholder {
+    color: rgba(160, 160, 192, 0.6);
+}
+
+.form-group input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
+}
+
+/* ---------- Toast Notifications ---------- */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    background: rgba(15, 12, 41, 0.9);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--accent-glow);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-family: var(--font);
+    animation: toastIn 0.4s ease-out;
+    backdrop-filter: blur(10px);
+}
+
+.toast i {
+    color: var(--accent);
+    font-size: 1.1rem;
+}
+
+@keyframes toastIn {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.toast.toast-error {
+    border-color: var(--danger);
+    box-shadow: var(--danger-glow);
+}
+
+.toast.toast-error i {
+    color: var(--danger);
+}
+
+.toast.toast-out {
+    animation: toastOut 0.3s ease-in forwards;
+}
+
+@keyframes toastOut {
+    to { opacity: 0; transform: translateX(40px); }
+}
+
+/* ---------- Delete Confirmation Modal ---------- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    animation: fadeInPage 0.25s ease-out;
+}
+
+.modal-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--glass-shadow);
+    padding: 36px 32px;
+    text-align: center;
+    max-width: 380px;
+    width: 90%;
+    animation: cardPop 0.35s ease-out;
+}
+
+.modal-icon {
+    font-size: 2.6rem;
+    color: var(--danger);
+    margin-bottom: 12px;
+}
+
+.modal-card h2 {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+}
+
+.modal-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.modal-actions .btn {
+    min-width: 110px;
+    justify-content: center;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 14px 20px;
+    }
+
+    .stats-section,
+    .search-section,
+    .cards-section {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .stat-card {
+        padding: 18px 20px;
+    }
+
+    .stat-info h3 {
+        font-size: 1.4rem;
+    }
+
+    .student-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-brand span {
+        display: none;
+    }
+
+    .stats-section {
+        grid-template-columns: 1fr;
+    }
+
+    .cards-section {
+        grid-template-columns: 1fr;
+    }
+}

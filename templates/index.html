@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Student Manager — Dashboard</title>
+    <meta name="description" content="A modern student management dashboard with live search, stats, and CRUD operations." />
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Student Manager</span>
+        </div>
+        <a href="/add" class="btn btn-primary" id="add-student-btn">
+            <i class="fas fa-plus"></i> Add Student
+        </a>
+    </nav>
+
+    <!-- ========== DASHBOARD STATS ========== -->
+    <section class="stats-section">
+        <div class="stat-card" id="stat-total">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <div class="stat-info">
+                <h3 id="total-students">0</h3>
+                <p>Total Students</p>
+            </div>
+        </div>
+        <div class="stat-card" id="stat-average">
+            <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="stat-info">
+                <h3 id="average-marks">0</h3>
+                <p>Average Marks</p>
+            </div>
+        </div>
+        <div class="stat-card" id="stat-highest">
+            <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+            <div class="stat-info">
+                <h3 id="highest-marks">0</h3>
+                <p>Highest Marks</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SEARCH BAR ========== -->
+    <section class="search-section">
+        <div class="search-wrapper">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="search-input" placeholder="Search by name or roll number..." autocomplete="off" />
+        </div>
+    </section>
+
+    <!-- ========== STUDENT CARDS GRID ========== -->
+    <section class="cards-section" id="cards-container">
+        <!-- Cards injected by JavaScript -->
+    </section>
+
+    <!-- ========== EMPTY STATE ========== -->
+    <div class="empty-state" id="empty-state" style="display:none;">
+        <i class="fas fa-user-slash"></i>
+        <p>No students found</p>
+    </div>
+
+    <!-- ========== TOAST CONTAINER ========== -->
+    <div id="toast-container"></div>
+
+    <!-- ========== DELETE CONFIRMATION MODAL ========== -->
+    <div class="modal-overlay" id="delete-modal" style="display:none;">
+        <div class="modal-card">
+            <i class="fas fa-exclamation-triangle modal-icon"></i>
+            <h2>Delete Student?</h2>
+            <p>This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancel-delete-btn">Cancel</button>
+                <button class="btn btn-danger" id="confirm-delete-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="/static/script.js"></script>
+</body>
+</html>
